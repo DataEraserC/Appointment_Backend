@@ -109,44 +109,76 @@ func main() {
 
 	// 用户获取个人信息接口
 	r.POST("/userinfo", func(c *gin.Context) {
-		token := c.PostForm("token")
+		var request struct {
+			Token string `json:"token"`
+		}
+		if err := c.ShouldBindJSON(&request); err != nil {
+			c.JSON(400, gin.H{"code": 1, "message": "参数错误"})
+			return
+		}
+
+		var tokenRecord Token
+		if err := db.Where("token = ?", request.Token).First(&tokenRecord).Error; err != nil {
+			c.JSON(400, gin.H{"code": 1, "message": "身份验证失败"})
+			return
+		}
 
 		var user User
-		if err := db.Preload("Record").Where("token = ?", token).First(&user).Error; err != nil {
-			c.JSON(400, gin.H{"code": 1, "message": "身份验证失败"})
+		if err := db.First(&user, tokenRecord.UserID).Error; err != nil {
+			c.JSON(400, gin.H{"code": 1, "message": "获取用户信息失败"})
 			return
 		}
 
 		c.JSON(200, gin.H{"code": 0, "message": "获取个人信息成功", "data": user})
+
 	})
 
 	// 用户修改个人信息接口
 	r.POST("/updateuserinfo", func(c *gin.Context) {
-		token := c.PostForm("token")
-		username := c.PostForm("username")
+		var request struct {
+			Token    string `json:"token"`
+			Username string `json:"username"`
+		}
+		if err := c.ShouldBindJSON(&request); err != nil {
+			c.JSON(400, gin.H{"code": 1, "message": "参数错误"})
+			return
+		}
 
-		var user User
-		if err := db.Model(&user).Where("token = ?", token).Update("username", username).Error; err != nil {
+		var tokenData Token
+		if err := db.Model(&tokenData).Where("token = ?", request.Token).First(&tokenData).Error; err != nil {
 			c.JSON(400, gin.H{"code": 1, "message": "身份验证失败"})
 			return
 		}
 
+		var user User
+		if err := db.Model(&user).Where("ID = ?", tokenData.UserID).Update("username", request.Username).Error; err != nil {
+			c.JSON(500, gin.H{"code": 2, "message": "修改个人信息失败"})
+			return
+		}
+
 		c.JSON(200, gin.H{"code": 0, "message": "修改个人信息成功"})
+
 	})
 
 	// 预约地点搜索接口
 	r.POST("/searchlocation", func(c *gin.Context) {
-		token := c.PostForm("token")
-		keyword := c.PostForm("keyword")
+		var request struct {
+			Token   string `json:"token"`
+			Keyword string `json:"keyword"`
+		}
+		if err := c.ShouldBindJSON(&request); err != nil {
+			c.JSON(400, gin.H{"code": 1, "message": "参数错误"})
+			return
+		}
 
 		var user User
-		if err := db.Where("token = ?", token).First(&user).Error; err != nil {
+		if err := db.Where("token = ?", request.Token).First(&user).Error; err != nil {
 			c.JSON(400, gin.H{"code": 1, "message": "身份验证失败"})
 			return
 		}
 
 		var locations []Location
-		if err := db.Where("name LIKE ?", "%"+keyword+"%").Find(&locations).Error; err != nil {
+		if err := db.Where("name LIKE ?", "%"+request.Keyword+"%").Find(&locations).Error; err != nil {
 			c.JSON(400, gin.H{"code": 1, "message": "搜索失败"})
 			return
 		}
@@ -156,24 +188,30 @@ func main() {
 
 	// 用户预约接口
 	r.POST("/reservation", func(c *gin.Context) {
-		token := c.PostForm("token")
-		locationID := c.PostForm("location_id")
-		date := c.PostForm("date")
+		var request struct {
+			Token      string `json:"token"`
+			LocationID string `json:"location_id"`
+			Date       string `json:"date"`
+		}
+		if err := c.ShouldBindJSON(&request); err != nil {
+			c.JSON(400, gin.H{"code": 1, "message": "参数错误"})
+			return
+		}
 
 		var user User
-		if err := db.Where("token = ?", token).First(&user).Error; err != nil {
+		if err := db.Where("token = ?", request.Token).First(&user).Error; err != nil {
 			c.JSON(400, gin.H{"code": 1, "message": "身份验证失败"})
 			return
 		}
 
 		var record Record
 		record.UserID = user.ID
-		locationIDUint, err := strconv.ParseUint(locationID, 10, 32)
+		locationIDUint, err := strconv.ParseUint(request.LocationID, 10, 32)
 		if err != nil {
 			// Handle the error if the conversion fails
 		}
 		record.LocationID = uint(locationIDUint)
-		record.Date = date
+		record.Date = request.Date
 
 		if err := db.Create(&record).Error; err != nil {
 			c.JSON(400, gin.H{"code": 1, "message": "预约失败"})
@@ -185,17 +223,23 @@ func main() {
 
 	// 预约记录搜索接口
 	r.POST("/searchrecord", func(c *gin.Context) {
-		token := c.PostForm("token")
-		keyword := c.PostForm("keyword")
+		var request struct {
+			Token   string `json:"token"`
+			Keyword string `json:"keyword"`
+		}
+		if err := c.ShouldBindJSON(&request); err != nil {
+			c.JSON(400, gin.H{"code": 1, "message": "参数错误"})
+			return
+		}
 
 		var user User
-		if err := db.Where("token = ?", token).First(&user).Error; err != nil {
+		if err := db.Where("token = ?", request.Token).First(&user).Error; err != nil {
 			c.JSON(400, gin.H{"code": 1, "message": "身份验证失败"})
 			return
 		}
 
 		var records []Record
-		if err := db.Where("date LIKE ? OR location_id LIKE ?", "%"+keyword+"%", "%"+keyword+"%").Find(&records).Error; err != nil {
+		if err := db.Where("date LIKE ? OR location_id LIKE ?", "%"+request.Keyword+"%", "%"+request.Keyword+"%").Find(&records).Error; err != nil {
 			c.JSON(400, gin.H{"code": 1, "message": "搜索失败"})
 			return
 		}
@@ -205,17 +249,23 @@ func main() {
 
 	// 预约地信息查询接口
 	r.POST("/locationinfo", func(c *gin.Context) {
-		token := c.PostForm("token")
-		locationID := c.PostForm("location_id")
+		var request struct {
+			Token      string `json:"token"`
+			LocationID string `json:"location_id"`
+		}
+		if err := c.ShouldBindJSON(&request); err != nil {
+			c.JSON(400, gin.H{"code": 1, "message": "参数错误"})
+			return
+		}
 
 		var user User
-		if err := db.Where("token = ?", token).First(&user).Error; err != nil {
+		if err := db.Where("token = ?", request.Token).First(&user).Error; err != nil {
 			c.JSON(400, gin.H{"code": 1, "message": "身份验证失败"})
 			return
 		}
 
 		var location Location
-		if err := db.Where("id = ?", locationID).First(&location).Error; err != nil {
+		if err := db.Where("id = ?", request.LocationID).First(&location).Error; err != nil {
 			c.JSON(400, gin.H{"code": 1, "message": "查询失败"})
 			return
 		}
