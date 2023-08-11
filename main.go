@@ -4,6 +4,7 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
@@ -91,9 +92,16 @@ func main() {
 		}
 
 		var token Token
-		if err := db.Where("user_id = ?", user.ID).FirstOrCreate(&token).Error; err != nil {
-			c.JSON(400, gin.H{"code": 1, "message": "无法生成token"})
-			return
+		if err := db.Where("user_id = ?", user.ID).First(&token).Error; err != nil {
+			// If token does not exist, create a new token for the user
+			token = Token{
+				UserID: user.ID,
+				Token:  generateToken(user.ID), // Assume there is a function generateToken to generate a unique token
+			}
+			if err := db.Create(&token).Error; err != nil {
+				c.JSON(400, gin.H{"code": 1, "message": "无法生成token"})
+				return
+			}
 		}
 
 		c.JSON(200, gin.H{"code": 0, "message": "登录成功", "token": token.Token})
@@ -216,4 +224,9 @@ func main() {
 	})
 
 	r.Run()
+}
+
+func generateToken(userID uint) string {
+	token := uuid.New().String() // Generate a unique token using UUID
+	return token
 }
