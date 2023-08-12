@@ -173,6 +173,43 @@ func main() {
 		c.JSON(200, gin.H{"code": 0, "message": "修改个人信息成功"})
 	})
 
+	// 地点添加接口
+	r.POST("/addlocation", func(c *gin.Context) {
+		var request struct {
+			Token       string `json:"token"`
+			Name        string `json:"name"`
+			Description string `json:"description"`
+		}
+		if err := c.ShouldBindJSON(&request); err != nil {
+			c.JSON(400, gin.H{"code": 1, "message": "参数错误"})
+			return
+		}
+
+		var tokenRecord Token
+		if err := db.Where("token = ?", request.Token).First(&tokenRecord).Error; err != nil {
+			c.JSON(400, gin.H{"code": 1, "message": "身份验证失败"})
+			return
+		}
+
+		var user User
+		if err := db.First(&user, tokenRecord.UserID).Error; err != nil {
+			c.JSON(400, gin.H{"code": 1, "message": "获取用户信息失败"})
+			return
+		}
+
+		location := Location{
+			Name:        request.Name,
+			Description: request.Description,
+		}
+
+		if err := db.Create(&location).Error; err != nil {
+			c.JSON(400, gin.H{"code": 1, "message": "添加地点失败"})
+			return
+		}
+
+		c.JSON(200, gin.H{"code": 0, "message": "添加地点成功", "data": location})
+	})
+
 	// 预约地点搜索接口
 	r.POST("/searchlocation", func(c *gin.Context) {
 		var request struct {
