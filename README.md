@@ -188,3 +188,90 @@ Content-Type: application/json
     }
 }
 ```
+## 预约地点搜索接口
+
+接口地址：/searchlocation
+
+请求方法：POST
+
+请求参数：
+- token：用户登录后生成的令牌，类型为字符串
+- keyword：搜索关键词，类型为字符串
+
+请求示例：
+```
+POST /searchlocation
+Content-Type: application/json
+
+{
+    "token": "abcd1234",
+    "keyword": "Location"
+}
+```
+
+返回数据：
+- code：返回状态码，0 表示成功，非0 表示失败
+- message：返回信息，搜索地点成功或失败的提示信息
+- data：返回的数据，搜索成功后返回符合搜索条件的地点列表
+
+返回示例：
+```
+{
+    "code": 0,
+    "message": "搜索成功",
+    "data": [
+        {
+            "id": 1,
+            "name": "Location 1",
+            "description": "This is location 1"
+        },
+        {
+            "id": 2,
+            "name": "Location 2",
+            "description": "This is location 2"
+        }
+    ]
+}
+```
+
+## 用户预约接口
+
+接口地址：/reservation
+
+请求方法：POST
+
+请求参数：
+- token：用户登录后生成的令牌，类型为字符串
+- location_id：地点ID，类型为字符串
+- date：预约日期，类型为字符串
+
+请求示例：
+```
+POST /reservation
+Content-Type: application/json
+
+{
+    "token": "abcd1234",
+    "location_id": "1",
+    "date": "2022-01-01"
+}
+```
+
+返回数据：
+- code：返回状态码，0 表示成功，非0 表示失败
+- message：返回信息，预约成功或失败的提示信息
+- data：返回的数据，预约成功后返回预约记录信息
+
+返回示例：
+```
+{
+    "code": 0,
+    "message": "预约成功",
+    "data": {
+        "id": 1,
+        "user_id": 123,
+        "location_id": 1,
+        "date": "2022-01-01"
+    }
+}
+```
