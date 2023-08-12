@@ -148,3 +148,43 @@ Content-Type: application/json
     "message": "修改个人信息成功"
 }
 ```
+## 添加地点接口
+
+接口地址：/addlocation
+
+请求方法：POST
+
+请求参数：
+- token：用户登录后生成的令牌，类型为字符串
+- name：地点名称，类型为字符串
+- description：地点描述，类型为字符串
+
+请求示例：
+```
+POST /addlocation
+Content-Type: application/json
+
+{
+    "token": "abcd1234",
+    "name": "New Location",
+    "description": "This is a new location"
+}
+```
+
+返回数据：
+- code：返回状态码，0 表示成功，非0 表示失败
+- message：返回信息，添加地点成功或失败的提示信息
+- data：返回的数据，添加成功后返回新创建的地点信息
+
+返回示例：
+```
+{
+    "code": 0,
+    "message": "添加地点成功",
+    "data": {
+        "id": 1,
+        "name": "New Location",
+        "description": "This is a new location"
+    }
+}
+```
