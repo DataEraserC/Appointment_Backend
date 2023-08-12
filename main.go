@@ -247,7 +247,8 @@ func main() {
 	// 预约地点搜索接口
 	r.POST("/searchlocation", func(c *gin.Context) {
 		var request struct {
-			Token string `json:"token"`
+			Token   string `json:"token"`
+			Keyword string `json:"keyword"`
 		}
 		if err := c.ShouldBindJSON(&request); err != nil {
 			c.JSON(400, gin.H{"code": 1, "message": "参数错误"})
@@ -260,10 +261,13 @@ func main() {
 			return
 		}
 
-		records := []Record{}
-		db.Where("user_id = ?", tokenData.UserID).Find(&records)
-		c.JSON(200, gin.H{"code": 0, "message": "搜索成功", "data": records})
+		var locations []Location
+		if err := db.Where("name LIKE ?", "%"+request.Keyword+"%").Find(&locations).Error; err != nil {
+			c.JSON(400, gin.H{"code": 1, "message": "搜索失败"})
+			return
+		}
 
+		c.JSON(200, gin.H{"code": 0, "message": "搜索成功", "data": locations})
 	})
 
 	// 用户预约接口
@@ -278,14 +282,14 @@ func main() {
 			return
 		}
 
-		var tokenData Token
-		if err := db.Model(&tokenData).Where("token = ?", request.Token).First(&tokenData).Error; err != nil {
+		var user User
+		if err := db.Where("token = ?", request.Token).First(&user).Error; err != nil {
 			c.JSON(400, gin.H{"code": 1, "message": "身份验证失败"})
 			return
 		}
 
 		var record Record
-		record.UserID = tokenData.UserID
+		record.UserID = user.ID
 		locationIDUint, err := strconv.ParseUint(request.LocationID, 10, 32)
 		if err != nil {
 			// Handle the error if the conversion fails
@@ -312,8 +316,8 @@ func main() {
 			return
 		}
 
-		var tokenData Token
-		if err := db.Model(&tokenData).Where("token = ?", request.Token).First(&tokenData).Error; err != nil {
+		var user User
+		if err := db.Where("token = ?", request.Token).First(&user).Error; err != nil {
 			c.JSON(400, gin.H{"code": 1, "message": "身份验证失败"})
 			return
 		}
