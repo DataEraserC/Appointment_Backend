@@ -250,7 +250,7 @@ Content-Type: application/json
 返回数据：
 - code：返回状态码，0 表示成功，非0 表示失败
 - message：返回信息，搜索地点成功或失败的提示信息
-- data：返回的数据，搜索成功后返回符合搜索条件的地点列表
+- data：返回的数据，搜索成功后返回符合搜索条件的地点列表(注意:如果要列出所有可以将keyword设为空)
 
 返回示例：
 ```
@@ -311,5 +311,51 @@ Content-Type: application/json
         "location_id": 1,
         "date": "2022-01-01"
     }
+}
+```
+
+## 预约记录搜索接口
+
+接口地址：/searchrecord
+
+请求方法：POST
+
+请求参数：
+- token：用户登录后生成的令牌，类型为字符串
+
+请求示例：
+```
+POST /searchrecord
+Content-Type: application/json
+
+{
+    "token": "abcd1234"
+}
+```
+
+返回数据：
+- code：返回状态码，0 表示成功，非0 表示失败
+- message：返回信息，搜索成功或失败的提示信息
+- data：返回的数据，搜索成功后返回预约记录列表
+
+返回示例：
+```
+{
+    "code": 0,
+    "message": "搜索成功",
+    "data": [
+        {
+            "ID": 1,
+            "UserID": 1,
+            "LocationID": 1,
+            "Date": "2022-01-01"
+        },
+        {
+            "ID": 2,
+            "UserID": 1,
+            "LocationID": 1,
+            "Date": "2022-01-01"
+        }
+    ]
 }
 ```
