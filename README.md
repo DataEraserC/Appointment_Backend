@@ -188,6 +188,44 @@ Content-Type: application/json
     }
 }
 ```
+
+## 修改地点接口
+
+接口地址：/updatelocation
+
+请求方法：POST
+
+请求参数：
+- token：用户登录后生成的令牌，类型为字符串
+- location_id：地点ID，类型为整数
+- name：地点名称，类型为字符串
+- description：地点描述，类型为字符串
+
+请求示例：
+```
+POST /updatelocation
+Content-Type: application/json
+
+{
+    "token": "abcd1234",
+    "location_id": 1,
+    "name": "Updated Location",
+    "description": "This is an updated location"
+}
+```
+
+返回数据：
+- code：返回状态码，0 表示成功，非0 表示失败
+- message：返回信息，更新地点成功或失败的提示信息
+
+返回示例：
+```
+{
+    "code": 0,
+    "message": "更新地点成功"
+}
+```
+
 ## 预约地点搜索接口
 
 接口地址：/searchlocation

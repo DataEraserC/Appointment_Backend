@@ -210,6 +210,40 @@ func main() {
 		c.JSON(200, gin.H{"code": 0, "message": "添加地点成功", "data": location})
 	})
 
+	// 预约地点修改接口
+	r.POST("/updatelocation", func(c *gin.Context) {
+		var request struct {
+			Token       string `json:"token"`
+			LocationID  int    `json:"location_id"`
+			Name        string `json:"name"`
+			Description string `json:"description"`
+		}
+		if err := c.ShouldBindJSON(&request); err != nil {
+			c.JSON(400, gin.H{"code": 1, "message": "参数错误"})
+			return
+		}
+
+		var tokenData Token
+		if err := db.Model(&tokenData).Where("token = ?", request.Token).First(&tokenData).Error; err != nil {
+			c.JSON(400, gin.H{"code": 1, "message": "身份验证失败"})
+			return
+		}
+
+		var location Location
+		if err := db.Model(&location).Where("id = ?", request.LocationID).First(&location).Error; err != nil {
+			c.JSON(400, gin.H{"code": 1, "message": "查询预约地点失败"})
+			return
+		}
+
+		// 更新预约地点信息
+		if err := db.Model(&location).Updates(Location{Name: request.Name, Description: request.Description}).Error; err != nil {
+			c.JSON(400, gin.H{"code": 1, "message": "更新预约地点失败"})
+			return
+		}
+
+		c.JSON(200, gin.H{"code": 0, "message": "更新预约地点成功"})
+	})
+
 	// 预约地点搜索接口
 	r.POST("/searchlocation", func(c *gin.Context) {
 		var request struct {
