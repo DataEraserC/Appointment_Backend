@@ -10,9 +10,12 @@ import (
 )
 
 type User struct {
-	ID       uint   `gorm:"primaryKey"`
-	Username string `gorm:"unique"`
-	Password string
+	ID          uint   `gorm:"primaryKey"`
+	Username    string `gorm:"unique"`
+	Password    string
+	Avatar      string
+	NickName    string
+	PhoneNumber string
 }
 
 type Location struct {
@@ -136,8 +139,12 @@ func main() {
 	// 用户修改个人信息接口
 	r.POST("/updateuserinfo", func(c *gin.Context) {
 		var request struct {
-			Token    string `json:"token"`
-			Username string `json:"username"`
+			Token       string `json:"token"`
+			Username    string `json:"username"`
+			Password    string `json:"password"`
+			Avatar      string `json:"avatar"`
+			NickName    string `json:"nickname"`
+			PhoneNumber string `json:"phoneNumber"`
 		}
 		if err := c.ShouldBindJSON(&request); err != nil {
 			c.JSON(400, gin.H{"code": 1, "message": "参数错误"})
@@ -151,13 +158,18 @@ func main() {
 		}
 
 		var user User
-		if err := db.Model(&user).Where("ID = ?", tokenData.UserID).Update("username", request.Username).Error; err != nil {
+		if err := db.Model(&user).Where("ID = ?", tokenData.UserID).Updates(User{
+			Username:    request.Username,
+			Password:    request.Password,
+			Avatar:      request.Avatar,
+			NickName:    request.NickName,
+			PhoneNumber: request.PhoneNumber,
+		}).Error; err != nil {
 			c.JSON(500, gin.H{"code": 2, "message": "修改个人信息失败"})
 			return
 		}
 
 		c.JSON(200, gin.H{"code": 0, "message": "修改个人信息成功"})
-
 	})
 
 	// 预约地点搜索接口
@@ -171,8 +183,8 @@ func main() {
 			return
 		}
 
-		var user User
-		if err := db.Where("token = ?", request.Token).First(&user).Error; err != nil {
+		var tokenData Token
+		if err := db.Model(&tokenData).Where("token = ?", request.Token).First(&tokenData).Error; err != nil {
 			c.JSON(400, gin.H{"code": 1, "message": "身份验证失败"})
 			return
 		}

@@ -98,8 +98,12 @@ Content-Type: application/json
     "code": 0,
     "message": "获取个人信息成功",
     "data": {
-        "username": "testuser",
-        "password": "123456"
+        "ID": 1,
+        "Username": "username1",
+        "Password": "password1",
+        "Avatar": "/default_avatar.png",
+        "NickName": "NickName1",
+        "PhoneNumber": "123456789"
     }
 }
 ```
@@ -113,6 +117,10 @@ Content-Type: application/json
 请求参数：
 - token：用户登录后生成的令牌，类型为字符串
 - username：修改后的用户名，类型为字符串
+- password：修改后的密码，类型为字符串
+- avatar：修改后的头像链接，类型为字符串
+- nickname：修改后的昵称，类型为字符串
+- phoneNumber：修改后的手机号，类型为字符串
 
 请求示例：
 ```
@@ -121,7 +129,11 @@ Content-Type: application/json
 
 {
     "token": "abcd1234",
-    "username": "newuser"
+    "username": "newuser",
+    "password": "newpassword",
+    "avatar": "new_avatar.jpg",
+    "nickname": "NewNickname",
+    "phoneNumber": "1234567890"
 }
 ```
 
