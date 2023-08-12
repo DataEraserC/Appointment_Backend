@@ -280,7 +280,7 @@ Content-Type: application/json
 
 请求参数：
 - token：用户登录后生成的令牌，类型为字符串
-- location_id：地点ID，类型为字符串
+- location_id：地点ID，类型为整数
 - date：预约日期，类型为字符串
 
 请求示例：
@@ -290,7 +290,7 @@ Content-Type: application/json
 
 {
     "token": "abcd1234",
-    "location_id": "1",
+    "location_id": 1,
     "date": "2022-01-01"
 }
 ```
@@ -357,5 +357,44 @@ Content-Type: application/json
             "Date": "2022-01-01"
         }
     ]
+}
+```
+
+## 查询地点信息接口
+
+接口地址：/locationinfo
+
+请求方法：POST
+
+请求参数：
+- token：用户登录后生成的令牌，类型为字符串
+- location_id：地点ID，类型为整数
+
+请求示例：
+```
+POST /locationinfo
+Content-Type: application/json
+
+{
+    "token": "abcd1234",
+    "location_id": 1
+}
+```
+
+返回数据：
+- code：返回状态码，0 表示成功，非0 表示失败
+- message：返回信息，查询成功或失败的提示信息
+- data：返回的数据，查询成功后返回地点的详细信息
+
+返回示例：
+```
+{
+    "code": 0,
+    "message": "查询成功",
+    "data": {
+        "id": 1,
+        "name": "New Location",
+        "description": "This is a new location"
+    }
 }
 ```

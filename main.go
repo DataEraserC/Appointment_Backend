@@ -1,8 +1,6 @@
 package main
 
 import (
-	"strconv"
-
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 	"gorm.io/driver/sqlite"
@@ -271,7 +269,7 @@ func main() {
 	r.POST("/reservation", func(c *gin.Context) {
 		var request struct {
 			Token      string `json:"token"`
-			LocationID string `json:"location_id"`
+			LocationID int    `json:"location_id"`
 			Date       string `json:"date"`
 		}
 		if err := c.ShouldBindJSON(&request); err != nil {
@@ -287,11 +285,10 @@ func main() {
 
 		var record Record
 		record.UserID = tokenData.UserID
-		locationIDUint, err := strconv.ParseUint(request.LocationID, 10, 32)
 		if err != nil {
 			// Handle the error if the conversion fails
 		}
-		record.LocationID = uint(locationIDUint)
+		record.LocationID = uint(request.LocationID)
 		record.Date = request.Date
 
 		if err := db.Create(&record).Error; err != nil {
@@ -329,15 +326,15 @@ func main() {
 	r.POST("/locationinfo", func(c *gin.Context) {
 		var request struct {
 			Token      string `json:"token"`
-			LocationID string `json:"location_id"`
+			LocationID int    `json:"location_id"`
 		}
 		if err := c.ShouldBindJSON(&request); err != nil {
 			c.JSON(400, gin.H{"code": 1, "message": "参数错误"})
 			return
 		}
 
-		var user User
-		if err := db.Where("token = ?", request.Token).First(&user).Error; err != nil {
+		var tokenData Token
+		if err := db.Model(&tokenData).Where("token = ?", request.Token).First(&tokenData).Error; err != nil {
 			c.JSON(400, gin.H{"code": 1, "message": "身份验证失败"})
 			return
 		}
