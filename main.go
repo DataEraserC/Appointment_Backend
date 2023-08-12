@@ -305,8 +305,8 @@ func main() {
 		c.JSON(200, gin.H{"code": 0, "message": "预约成功", "data": record})
 	})
 
-	// 预约记录搜索接口
-	r.POST("/searchrecord", func(c *gin.Context) {
+	// 用户预约记录列表接口
+	r.POST("/listrecord", func(c *gin.Context) {
 		var request struct {
 			Token string `json:"token"`
 		}

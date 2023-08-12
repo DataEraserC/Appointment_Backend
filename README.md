@@ -314,9 +314,9 @@ Content-Type: application/json
 }
 ```
 
-## 预约记录搜索接口
+## 用户预约记录列表接口
 
-接口地址：/searchrecord
+接口地址：/listrecord
 
 请求方法：POST
 
@@ -325,7 +325,7 @@ Content-Type: application/json
 
 请求示例：
 ```
-POST /searchrecord
+POST /listrecord
 Content-Type: application/json
 
 {
