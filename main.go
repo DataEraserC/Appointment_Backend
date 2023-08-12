@@ -131,6 +131,7 @@ func main() {
 			c.JSON(400, gin.H{"code": 1, "message": "获取用户信息失败"})
 			return
 		}
+		user.Password = ""
 
 		c.JSON(200, gin.H{"code": 0, "message": "获取个人信息成功", "data": user})
 

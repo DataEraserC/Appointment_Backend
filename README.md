@@ -90,7 +90,7 @@ Content-Type: application/json
 返回数据：
 - code：返回状态码，0 表示成功，非0 表示失败
 - message：返回信息，获取个人信息成功或失败的提示信息
-- data：用户个人信息的数据，包含用户名和密码
+- data：用户个人信息的数据，包含用户名
 
 返回示例：
 ```
@@ -100,7 +100,7 @@ Content-Type: application/json
     "data": {
         "ID": 1,
         "Username": "username1",
-        "Password": "password1",
+        "Password": "",
         "Avatar": "/default_avatar.png",
         "NickName": "NickName1",
         "PhoneNumber": "123456789"
