@@ -148,6 +148,7 @@ Content-Type: application/json
     "message": "修改个人信息成功"
 }
 ```
+
 ## 添加地点接口
 
 接口地址：/addlocation
@@ -282,6 +283,7 @@ Content-Type: application/json
 - token：用户登录后生成的令牌，类型为字符串
 - location_id：地点ID，类型为整数
 - date：预约日期，类型为字符串
+- time：预约时间，类型为字符串
 
 请求示例：
 ```
@@ -291,7 +293,8 @@ Content-Type: application/json
 {
     "token": "abcd1234",
     "location_id": 1,
-    "date": "2022-01-01"
+    "date": "2022-01-01",
+    "time": "17:00-19:00"
 }
 ```
 

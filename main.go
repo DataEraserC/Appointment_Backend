@@ -27,6 +27,7 @@ type Record struct {
 	UserID     uint
 	LocationID uint
 	Date       string
+	Time       string
 }
 
 type Token struct {
@@ -271,6 +272,7 @@ func main() {
 			Token      string `json:"token"`
 			LocationID int    `json:"location_id"`
 			Date       string `json:"date"`
+			Time       string `json:"time"`
 		}
 		if err := c.ShouldBindJSON(&request); err != nil {
 			c.JSON(400, gin.H{"code": 1, "message": "参数错误"})
@@ -290,6 +292,7 @@ func main() {
 		}
 		record.LocationID = uint(request.LocationID)
 		record.Date = request.Date
+		record.Time = request.Time
 
 		if err := db.Create(&record).Error; err != nil {
 			c.JSON(400, gin.H{"code": 1, "message": "预约失败"})
