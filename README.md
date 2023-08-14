@@ -351,17 +351,76 @@ Content-Type: application/json
             "ID": 1,
             "UserID": 1,
             "LocationID": 1,
-            "Date": "2022-01-01"
+            "Date": "2022-01-01",
+            "Time": "17:00 - 19:00"
         },
         {
             "ID": 2,
             "UserID": 1,
             "LocationID": 1,
-            "Date": "2022-01-01"
+            "Date": "2022-01-01",
+            "Time": "17:00 - 19:00"
         }
     ]
 }
 ```
+
+# 用户预约记录详细列表接口
+
+接口地址：/listrecorddetail
+
+请求方法：POST
+
+请求参数：
+- token：用户登录后生成的令牌，类型为字符串
+
+请求示例：
+```
+POST /listrecorddetail
+Content-Type: application/json
+
+{
+    "token": "abcd1234"
+}
+```
+
+返回数据：
+- code：返回状态码，0 表示成功，非0 表示失败
+- message：返回信息，搜索成功或失败的提示信息
+- data：返回的数据，搜索成功后返回预约记录详细列表
+
+返回示例：
+```
+{
+    "code": 0,
+    "message": "搜索成功",
+    "data": [
+        {
+            "ID": 1,
+            "UserID": 1,
+            "LocationID": 1,
+            "Date": "2022-01-01",
+            "Time": "17:00 - 19:00",
+            "LocationName": "会议室A",
+            "LocationDescription": "适用于小型会议"
+        },
+        {
+            "ID": 2,
+            "UserID": 1,
+            "LocationID": 2,
+            "Date": "2022-01-01",
+            "Time": "17:00 - 19:00",
+            "LocationName": "会议室B",
+            "LocationDescription": "适用于大型会议"
+        }
+    ]
+}
+```
+
+注意事项：
+- 需要用户登录后才能调用该接口，所以需要先调用登录接口获取到token，并在请求参数中带上token进行请求。
+- 在这个接口中，我们联合查询了预约记录和地点表，通过地点表的信息来获取预约记录的详细信息。
+- 返回的数据中，增加了地点名称和地点描述的字段，方便用户查看预约记录时能够直接看到预约的地点信息。
 
 ## 查询地点信息接口
 

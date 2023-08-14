@@ -325,6 +325,44 @@ func main() {
 		c.JSON(200, gin.H{"code": 0, "message": "搜索成功", "data": records})
 	})
 
+	// 用户预约记录详细列表接口
+	r.POST("/listrecorddetail", func(c *gin.Context) {
+		var request struct {
+			Token string `json:"token"`
+		}
+		if err := c.ShouldBindJSON(&request); err != nil {
+			c.JSON(400, gin.H{"code": 1, "message": "参数错误"})
+			return
+		}
+
+		var tokenData Token
+		if err := db.Model(&tokenData).Where("token = ?", request.Token).First(&tokenData).Error; err != nil {
+			c.JSON(400, gin.H{"code": 1, "message": "身份验证失败"})
+			return
+		}
+
+		type RecordDetail struct {
+			ID                  uint   `json:"id"`
+			UserID              uint   `json:"user_id"`
+			LocationID          uint   `json:"location_id"`
+			Date                string `json:"date"`
+			Time                string `json:"time"`
+			LocationName        string `json:"location_name"`
+			LocationDescription string `json:"location_description"`
+		}
+
+		var records []RecordDetail
+
+		// 联合查询地点信息
+		db.Table("records").
+			Select("records.*, locations.name as location_name, locations.description as location_description").
+			Joins("LEFT JOIN locations ON records.location_id = locations.id").
+			Where("user_id = ?", tokenData.UserID).
+			Find(&records)
+
+		c.JSON(200, gin.H{"code": 0, "message": "搜索成功", "data": records})
+	})
+
 	// 预约地信息查询接口
 	r.POST("/locationinfo", func(c *gin.Context) {
 		var request struct {
