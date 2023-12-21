@@ -44,8 +44,10 @@ func main() {
 	}
 
 	// Auto Migrate
-	db.AutoMigrate(&User{}, &Location{}, &Record{}, &Token{})
-
+	err = db.AutoMigrate(&User{}, &Location{}, &Record{}, &Token{})
+	if err != nil {
+		panic("failed to AutoMigrate database")
+	}
 	r := gin.Default()
 
 	// 用户注册接口
@@ -93,8 +95,7 @@ func main() {
 			return
 		}
 
-		var token Token
-		token = Token{
+		token := Token{
 			UserID: user.ID,
 			Token:  generateToken(user.ID), // Assume there is a function generateToken to generate a unique token
 		}
@@ -287,9 +288,9 @@ func main() {
 
 		var record Record
 		record.UserID = tokenData.UserID
-		if err != nil {
-			// Handle the error if the conversion fails
-		}
+		// if err != nil {
+		// 	// Handle the error if the conversion fails
+		// }
 		record.LocationID = uint(request.LocationID)
 		record.Date = request.Date
 		record.Time = request.Time
@@ -389,7 +390,10 @@ func main() {
 		c.JSON(200, gin.H{"code": 0, "message": "查询成功", "data": location})
 	})
 
-	r.Run()
+	err = r.Run()
+	if err != nil {
+		panic("failed at r.Run()")
+	}
 }
 
 func generateToken(userID uint) string {
