@@ -1,3 +1,9 @@
+---
+runme:
+  id: 01HMV87HR2314QHE9YBV7CBQZ5
+  version: v2.2
+---
+
 # 接口文档
 
 ## 用户注册接口
@@ -7,26 +13,30 @@
 请求方法：POST
 
 请求参数：
+
 - username：用户名称，类型为字符串
 - password：用户密码，类型为字符串
 
 请求示例：
-```
+
+```json {"id":"01HMV87HR2314QHE9YAJMXRD9S"}
 POST /register
 Content-Type: application/json
 
 {
-    "username": "testuser",
-    "password": "123456"
+    "UserName": "testuser",
+    "Password": "123456"
 }
 ```
 
 返回数据：
+
 - code：返回状态码，0 表示成功，非0 表示失败
 - message：返回信息，注册成功或失败的提示信息
 
 返回示例：
-```
+
+```json {"id":"01HMV87HR2314QHE9YANFXS045"}
 {
     "code": 0,
     "message": "注册成功"
@@ -40,31 +50,35 @@ Content-Type: application/json
 请求方法：POST
 
 请求参数：
+
 - username：用户名称，类型为字符串
 - password：用户密码，类型为字符串
 
 请求示例：
-```
+
+```sh {"id":"01HMV87HR2314QHE9YANR740Q6"}
 POST /login
 Content-Type: application/json
 
 {
-    "username": "testuser",
-    "password": "123456"
+    "UserName": "testuser",
+    "Password": "123456"
 }
 ```
 
 返回数据：
+
 - code：返回状态码，0 表示成功，非0 表示失败
 - message：返回信息，登录成功或失败的提示信息
 - token：用户登录后生成的令牌，类型为字符串
 
 返回示例：
-```
+
+```json {"id":"01HMV87HR2314QHE9YAS5S125N"}
 {
     "code": 0,
     "message": "登录成功",
-    "token": "abcd1234"
+    "Token": "abcd1234"
 }
 ```
 
@@ -75,33 +89,37 @@ Content-Type: application/json
 请求方法：POST
 
 请求参数：
+
 - token：用户登录后生成的令牌，类型为字符串
 
 请求示例：
-```
+
+```sh {"id":"01HMV87HR2314QHE9YATPF2KWR"}
 POST /userinfo
 Content-Type: application/json
 
 {
-    "token": "abcd1234"
+    "Token": "abcd1234"
 }
 ```
 
 返回数据：
+
 - code：返回状态码，0 表示成功，非0 表示失败
 - message：返回信息，获取个人信息成功或失败的提示信息
 - data：用户个人信息的数据，包含用户名
 
 返回示例：
-```
+
+```json {"id":"01HMV87HR2314QHE9YAV315HXS"}
 {
     "code": 0,
     "message": "获取个人信息成功",
     "data": {
         "ID": 1,
-        "Username": "username1",
+        "UserName": "UserName1",
         "Password": "",
-        "Avatar": "/default_avatar.png",
+        "Avatar": "/default_Avatar.png",
         "NickName": "NickName1",
         "PhoneNumber": "123456789"
     }
@@ -115,6 +133,7 @@ Content-Type: application/json
 请求方法：POST
 
 请求参数：
+
 - token：用户登录后生成的令牌，类型为字符串
 - username：修改后的用户名，类型为字符串
 - password：修改后的密码，类型为字符串
@@ -123,26 +142,29 @@ Content-Type: application/json
 - phoneNumber：修改后的手机号，类型为字符串
 
 请求示例：
-```
-POST /updateuserinfo
+
+```html {"id":"01HMV87HR2314QHE9YAX30BKKT"}
+POST /upDateuserinfo
 Content-Type: application/json
 
 {
-    "token": "abcd1234",
-    "username": "newuser",
-    "password": "newpassword",
-    "avatar": "new_avatar.jpg",
-    "nickname": "NewNickname",
-    "phoneNumber": "1234567890"
+    "Token": "abcd1234",
+    "UserName": "newuser",
+    "Password": "newPassword",
+    "Avatar": "new_Avatar.jpg",
+    "NickName": "NewNickName",
+    "PhoneNumber": "1234567890"
 }
 ```
 
 返回数据：
+
 - code：返回状态码，0 表示成功，非0 表示失败
 - message：返回信息，修改个人信息成功或失败的提示信息
 
 返回示例：
-```
+
+```ini {"id":"01HMV87HR2314QHE9YAYAXSAZK"}
 {
     "code": 0,
     "message": "修改个人信息成功"
@@ -156,36 +178,40 @@ Content-Type: application/json
 请求方法：POST
 
 请求参数：
+
 - token：用户登录后生成的令牌，类型为字符串
 - name：地点名称，类型为字符串
 - description：地点描述，类型为字符串
 
 请求示例：
-```
+
+```json {"id":"01HMV87HR2314QHE9YAZY5FH30"}
 POST /addlocation
 Content-Type: application/json
 
 {
-    "token": "abcd1234",
-    "name": "New Location",
-    "description": "This is a new location"
+    "Token": "abcd1234",
+    "Name": "New Location",
+    "Description": "This is a new location"
 }
 ```
 
 返回数据：
+
 - code：返回状态码，0 表示成功，非0 表示失败
 - message：返回信息，添加地点成功或失败的提示信息
 - data：返回的数据，添加成功后返回新创建的地点信息
 
 返回示例：
-```
+
+```json {"id":"01HMV87HR2314QHE9YB2KFR7SQ"}
 {
     "code": 0,
     "message": "添加地点成功",
     "data": {
-        "id": 1,
-        "name": "New Location",
-        "description": "This is a new location"
+        "ID": 1,
+        "Name": "New Location",
+        "Description": "This is a new location"
     }
 }
 ```
@@ -197,30 +223,34 @@ Content-Type: application/json
 请求方法：POST
 
 请求参数：
+
 - token：用户登录后生成的令牌，类型为字符串
 - location_id：地点ID，类型为整数
 - name：地点名称，类型为字符串
 - description：地点描述，类型为字符串
 
 请求示例：
-```
-POST /updatelocation
+
+```sh {"id":"01HMV87HR2314QHE9YB6CEQWQ7"}
+POST /upDatelocation
 Content-Type: application/json
 
 {
-    "token": "abcd1234",
-    "location_id": 1,
-    "name": "Updated Location",
-    "description": "This is an updated location"
+    "Token": "abcd1234",
+    "LocationID": 1,
+    "Name": "UpDated Location",
+    "Description": "This is an upDated location"
 }
 ```
 
 返回数据：
+
 - code：返回状态码，0 表示成功，非0 表示失败
 - message：返回信息，更新地点成功或失败的提示信息
 
 返回示例：
-```
+
+```ini {"id":"01HMV87HR2314QHE9YB9Z385KK"}
 {
     "code": 0,
     "message": "更新地点成功"
@@ -234,40 +264,44 @@ Content-Type: application/json
 请求方法：POST
 
 请求参数：
+
 - token：用户登录后生成的令牌，类型为字符串
 - keyword：搜索关键词，类型为字符串
 
 请求示例：
-```
+
+```sh {"id":"01HMV87HR2314QHE9YBCJ2RYR0"}
 POST /searchlocation
 Content-Type: application/json
 
 {
-    "token": "abcd1234",
-    "keyword": "Location"
+    "Token": "abcd1234",
+    "Keyword": "Location"
 }
 ```
 
 返回数据：
+
 - code：返回状态码，0 表示成功，非0 表示失败
 - message：返回信息，搜索地点成功或失败的提示信息
 - data：返回的数据，搜索成功后返回符合搜索条件的地点列表(注意:如果要列出所有可以将keyword设为空)
 
 返回示例：
-```
+
+```json {"id":"01HMV87HR2314QHE9YBG1JNNB3"}
 {
     "code": 0,
     "message": "搜索成功",
     "data": [
         {
-            "id": 1,
-            "name": "Location 1",
-            "description": "This is location 1"
+            "ID": 1,
+            "Name": "Location 1",
+            "Description": "This is location 1"
         },
         {
-            "id": 2,
-            "name": "Location 2",
-            "description": "This is location 2"
+            "ID": 2,
+            "Name": "Location 2",
+            "Description": "This is location 2"
         }
     ]
 }
@@ -280,39 +314,43 @@ Content-Type: application/json
 请求方法：POST
 
 请求参数：
+
 - token：用户登录后生成的令牌，类型为字符串
 - location_id：地点ID，类型为整数
 - date：预约日期，类型为字符串
 - time：预约时间，类型为字符串
 
 请求示例：
-```
+
+```sh {"id":"01HMV87HR2314QHE9YBH3SN0MZ"}
 POST /reservation
 Content-Type: application/json
 
 {
-    "token": "abcd1234",
-    "location_id": 1,
-    "date": "2022-01-01",
-    "time": "17:00-19:00"
+    "Token": "abcd1234",
+    "LocationID": 1,
+    "Date": "2022-01-01",
+    "Time": "17:00-19:00"
 }
 ```
 
 返回数据：
+
 - code：返回状态码，0 表示成功，非0 表示失败
 - message：返回信息，预约成功或失败的提示信息
 - data：返回的数据，预约成功后返回预约记录信息
 
 返回示例：
-```
+
+```json {"id":"01HMV87HR2314QHE9YBHAAG8F2"}
 {
     "code": 0,
     "message": "预约成功",
     "data": {
-        "id": 1,
-        "user_id": 123,
-        "location_id": 1,
-        "date": "2022-01-01"
+        "ID": 1,
+        "UserID": 123,
+        "LocationID": 1,
+        "Date": "2022-01-01"
     }
 }
 ```
@@ -324,25 +362,29 @@ Content-Type: application/json
 请求方法：POST
 
 请求参数：
+
 - token：用户登录后生成的令牌，类型为字符串
 
 请求示例：
-```
+
+```sh {"id":"01HMV87HR2314QHE9YBKZDRDN3"}
 POST /listrecord
 Content-Type: application/json
 
 {
-    "token": "abcd1234"
+    "Token": "abcd1234"
 }
 ```
 
 返回数据：
+
 - code：返回状态码，0 表示成功，非0 表示失败
 - message：返回信息，搜索成功或失败的提示信息
 - data：返回的数据，搜索成功后返回预约记录列表
 
 返回示例：
-```
+
+```json {"id":"01HMV87HR2314QHE9YBMCX79KF"}
 {
     "code": 0,
     "message": "搜索成功",
@@ -372,25 +414,29 @@ Content-Type: application/json
 请求方法：POST
 
 请求参数：
+
 - token：用户登录后生成的令牌，类型为字符串
 
 请求示例：
-```
+
+```sh {"id":"01HMV87HR2314QHE9YBNAN8KFM"}
 POST /listrecorddetail
 Content-Type: application/json
 
 {
-    "token": "abcd1234"
+    "Token": "abcd1234"
 }
 ```
 
 返回数据：
+
 - code：返回状态码，0 表示成功，非0 表示失败
 - message：返回信息，搜索成功或失败的提示信息
 - data：返回的数据，搜索成功后返回预约记录详细列表
 
 返回示例：
-```
+
+```json {"id":"01HMV87HR2314QHE9YBP19PMYK"}
 {
     "code": 0,
     "message": "搜索成功",
@@ -418,6 +464,7 @@ Content-Type: application/json
 ```
 
 注意事项：
+
 - 需要用户登录后才能调用该接口，所以需要先调用登录接口获取到token，并在请求参数中带上token进行请求。
 - 在这个接口中，我们联合查询了预约记录和地点表，通过地点表的信息来获取预约记录的详细信息。
 - 返回的数据中，增加了地点名称和地点描述的字段，方便用户查看预约记录时能够直接看到预约的地点信息。
@@ -429,34 +476,38 @@ Content-Type: application/json
 请求方法：POST
 
 请求参数：
+
 - token：用户登录后生成的令牌，类型为字符串
 - location_id：地点ID，类型为整数
 
 请求示例：
-```
+
+```sh {"id":"01HMV87HR2314QHE9YBQWF9FW0"}
 POST /locationinfo
 Content-Type: application/json
 
 {
-    "token": "abcd1234",
-    "location_id": 1
+    "Token": "abcd1234",
+    "LocationID": 1
 }
 ```
 
 返回数据：
+
 - code：返回状态码，0 表示成功，非0 表示失败
 - message：返回信息，查询成功或失败的提示信息
 - data：返回的数据，查询成功后返回地点的详细信息
 
 返回示例：
-```
+
+```json {"id":"01HMV87HR2314QHE9YBTCS0CTW"}
 {
     "code": 0,
     "message": "查询成功",
     "data": {
-        "id": 1,
-        "name": "New Location",
-        "description": "This is a new location"
+        "ID": 1,
+        "Name": "New Location",
+        "Description": "This is a new location"
     }
 }
 ```

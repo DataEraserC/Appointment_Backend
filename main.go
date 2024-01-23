@@ -53,8 +53,8 @@ func main() {
 	// 用户注册接口
 	r.POST("/register", func(c *gin.Context) {
 		var request struct {
-			Username string `json:"username"`
-			Password string `json:"password"`
+			Username string `json:"UserName"`
+			Password string `json:"Password"`
 		}
 		if err := c.ShouldBindJSON(&request); err != nil {
 			c.JSON(400, gin.H{"code": 1, "message": "参数错误"})
@@ -76,8 +76,8 @@ func main() {
 	// 用户登录接口
 	r.POST("/login", func(c *gin.Context) {
 		var request struct {
-			Username string `json:"username"`
-			Password string `json:"password"`
+			Username string `json:"UserName"`
+			Password string `json:"Password"`
 		}
 		if err := c.ShouldBindJSON(&request); err != nil {
 			c.JSON(400, gin.H{"code": 1, "message": "参数错误"})
@@ -104,13 +104,13 @@ func main() {
 			return
 		}
 
-		c.JSON(200, gin.H{"code": 0, "message": "登录成功", "token": token.Token})
+		c.JSON(200, gin.H{"code": 0, "message": "登录成功", "Token": token.Token})
 	})
 
 	// 用户获取个人信息接口
 	r.POST("/userinfo", func(c *gin.Context) {
 		var request struct {
-			Token string `json:"token"`
+			Token string `json:"Token"`
 		}
 		if err := c.ShouldBindJSON(&request); err != nil {
 			c.JSON(400, gin.H{"code": 1, "message": "参数错误"})
@@ -137,12 +137,12 @@ func main() {
 	// 用户修改个人信息接口
 	r.POST("/updateuserinfo", func(c *gin.Context) {
 		var request struct {
-			Token       string `json:"token"`
-			Username    string `json:"username"`
-			Password    string `json:"password"`
-			Avatar      string `json:"avatar"`
-			NickName    string `json:"nickname"`
-			PhoneNumber string `json:"phoneNumber"`
+			Token       string `json:"Token"`
+			Username    string `json:"UserName"`
+			Password    string `json:"Password"`
+			Avatar      string `json:"Avatar"`
+			NickName    string `json:"NickName"`
+			PhoneNumber string `json:"PhoneNumber"`
 		}
 		if err := c.ShouldBindJSON(&request); err != nil {
 			c.JSON(400, gin.H{"code": 1, "message": "参数错误"})
@@ -173,9 +173,9 @@ func main() {
 	// 地点添加接口
 	r.POST("/addlocation", func(c *gin.Context) {
 		var request struct {
-			Token       string `json:"token"`
-			Name        string `json:"name"`
-			Description string `json:"description"`
+			Token       string `json:"Token"`
+			Name        string `json:"Name"`
+			Description string `json:"Description"`
 		}
 		if err := c.ShouldBindJSON(&request); err != nil {
 			c.JSON(400, gin.H{"code": 1, "message": "参数错误"})
@@ -210,10 +210,10 @@ func main() {
 	// 预约地点修改接口
 	r.POST("/updatelocation", func(c *gin.Context) {
 		var request struct {
-			Token       string `json:"token"`
-			LocationID  int    `json:"location_id"`
-			Name        string `json:"name"`
-			Description string `json:"description"`
+			Token       string `json:"Token"`
+			LocationID  int    `json:"LocationID"`
+			Name        string `json:"Name"`
+			Description string `json:"Description"`
 		}
 		if err := c.ShouldBindJSON(&request); err != nil {
 			c.JSON(400, gin.H{"code": 1, "message": "参数错误"})
@@ -244,8 +244,8 @@ func main() {
 	// 预约地点搜索接口
 	r.POST("/searchlocation", func(c *gin.Context) {
 		var request struct {
-			Token   string `json:"token"`
-			Keyword string `json:"keyword"`
+			Token   string `json:"Token"`
+			Keyword string `json:"Keyword"`
 		}
 		if err := c.ShouldBindJSON(&request); err != nil {
 			c.JSON(400, gin.H{"code": 1, "message": "参数错误"})
@@ -270,10 +270,10 @@ func main() {
 	// 用户预约接口
 	r.POST("/reservation", func(c *gin.Context) {
 		var request struct {
-			Token      string `json:"token"`
-			LocationID int    `json:"location_id"`
-			Date       string `json:"date"`
-			Time       string `json:"time"`
+			Token      string `json:"Token"`
+			LocationID int    `json:"LocationID"`
+			Date       string `json:"Date"`
+			Time       string `json:"Time"`
 		}
 		if err := c.ShouldBindJSON(&request); err != nil {
 			c.JSON(400, gin.H{"code": 1, "message": "参数错误"})
@@ -306,7 +306,7 @@ func main() {
 	// 用户预约记录列表接口
 	r.POST("/listrecord", func(c *gin.Context) {
 		var request struct {
-			Token string `json:"token"`
+			Token string `json:"Token"`
 		}
 		if err := c.ShouldBindJSON(&request); err != nil {
 			c.JSON(400, gin.H{"code": 1, "message": "参数错误"})
@@ -329,7 +329,7 @@ func main() {
 	// 用户预约记录详细列表接口
 	r.POST("/listrecorddetail", func(c *gin.Context) {
 		var request struct {
-			Token string `json:"token"`
+			Token string `json:"Token"`
 		}
 		if err := c.ShouldBindJSON(&request); err != nil {
 			c.JSON(400, gin.H{"code": 1, "message": "参数错误"})
@@ -343,13 +343,13 @@ func main() {
 		}
 
 		type RecordDetail struct {
-			ID                  uint   `json:"id"`
-			UserID              uint   `json:"user_id"`
-			LocationID          uint   `json:"location_id"`
-			Date                string `json:"date"`
-			Time                string `json:"time"`
-			LocationName        string `json:"location_name"`
-			LocationDescription string `json:"location_description"`
+			ID                  uint   `json:"ID"`
+			UserID              uint   `json:"UserID"`
+			LocationID          uint   `json:"LocationID"`
+			Date                string `json:"Date"`
+			Time                string `json:"Time"`
+			LocationName        string `json:"LocationName"`
+			LocationDescription string `json:"LocationDescription"`
 		}
 
 		var records []RecordDetail
@@ -367,8 +367,8 @@ func main() {
 	// 预约地信息查询接口
 	r.POST("/locationinfo", func(c *gin.Context) {
 		var request struct {
-			Token      string `json:"token"`
-			LocationID int    `json:"location_id"`
+			Token      string `json:"Token"`
+			LocationID int    `json:"LocationID"`
 		}
 		if err := c.ShouldBindJSON(&request); err != nil {
 			c.JSON(400, gin.H{"code": 1, "message": "参数错误"})
