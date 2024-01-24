@@ -51,7 +51,51 @@ func main() {
 	r := gin.Default()
 
 	// 用户注册接口
-	r.POST("/register", func(c *gin.Context) {
+	r.POST("/register", register(db))
+
+	// 用户登录接口
+	r.POST("/login", login(db))
+
+	// 用户获取个人信息接口
+	r.POST("/userinfo", userinfo(db))
+
+	// 用户修改个人信息接口
+	r.POST("/updateuserinfo", updateuserinfo(db))
+
+	// 地点添加接口
+	r.POST("/addlocation", addlocation(db))
+
+	// 预约地点修改接口
+	r.POST("/updatelocation", updatelocation(db))
+
+	// 预约地点搜索接口
+	r.POST("/searchlocation", searchlocation(db))
+
+	// 用户预约接口
+	r.POST("/reservation", reservation(db))
+
+	// 用户预约记录列表接口
+	r.POST("/listrecord", listrecord(db))
+
+	// 用户预约记录详细列表接口
+	r.POST("/listrecorddetail", listrecorddetail(db))
+
+	// 预约地信息查询接口
+	r.POST("/locationinfo", locationinfo(db))
+
+	err = r.Run()
+	if err != nil {
+		panic("failed at r.Run()")
+	}
+}
+
+func generateToken(userID uint) string {
+	token := uuid.New().String() // Generate a unique token using UUID
+	return token
+}
+
+func register(db *gorm.DB) gin.HandlerFunc {
+	return func(c *gin.Context) {
 		var request struct {
 			Username string `json:"UserName"`
 			Password string `json:"Password"`
@@ -71,10 +115,11 @@ func main() {
 		}
 
 		c.JSON(200, gin.H{"code": 0, "message": "注册成功"})
-	})
+	}
+}
 
-	// 用户登录接口
-	r.POST("/login", func(c *gin.Context) {
+func login(db *gorm.DB) gin.HandlerFunc {
+	return func(c *gin.Context) {
 		var request struct {
 			Username string `json:"UserName"`
 			Password string `json:"Password"`
@@ -105,10 +150,11 @@ func main() {
 		}
 
 		c.JSON(200, gin.H{"code": 0, "message": "登录成功", "Token": token.Token})
-	})
+	}
+}
 
-	// 用户获取个人信息接口
-	r.POST("/userinfo", func(c *gin.Context) {
+func userinfo(db *gorm.DB) gin.HandlerFunc {
+	return func(c *gin.Context) {
 		var request struct {
 			Token string `json:"Token"`
 		}
@@ -132,10 +178,11 @@ func main() {
 
 		c.JSON(200, gin.H{"code": 0, "message": "获取个人信息成功", "data": user})
 
-	})
+	}
+}
 
-	// 用户修改个人信息接口
-	r.POST("/updateuserinfo", func(c *gin.Context) {
+func updateuserinfo(db *gorm.DB) gin.HandlerFunc {
+	return func(c *gin.Context) {
 		var request struct {
 			Token       string `json:"Token"`
 			Username    string `json:"UserName"`
@@ -168,10 +215,10 @@ func main() {
 		}
 
 		c.JSON(200, gin.H{"code": 0, "message": "修改个人信息成功"})
-	})
-
-	// 地点添加接口
-	r.POST("/addlocation", func(c *gin.Context) {
+	}
+}
+func addlocation(db *gorm.DB) gin.HandlerFunc {
+	return func(c *gin.Context) {
 		var request struct {
 			Token       string `json:"Token"`
 			Name        string `json:"Name"`
@@ -205,10 +252,11 @@ func main() {
 		}
 
 		c.JSON(200, gin.H{"code": 0, "message": "添加地点成功", "data": location})
-	})
+	}
+}
 
-	// 预约地点修改接口
-	r.POST("/updatelocation", func(c *gin.Context) {
+func updatelocation(db *gorm.DB) gin.HandlerFunc {
+	return func(c *gin.Context) {
 		var request struct {
 			Token       string `json:"Token"`
 			LocationID  int    `json:"LocationID"`
@@ -239,10 +287,11 @@ func main() {
 		}
 
 		c.JSON(200, gin.H{"code": 0, "message": "更新预约地点成功"})
-	})
+	}
+}
 
-	// 预约地点搜索接口
-	r.POST("/searchlocation", func(c *gin.Context) {
+func searchlocation(db *gorm.DB) gin.HandlerFunc {
+	return func(c *gin.Context) {
 		var request struct {
 			Token   string `json:"Token"`
 			Keyword string `json:"Keyword"`
@@ -265,10 +314,11 @@ func main() {
 		}
 
 		c.JSON(200, gin.H{"code": 0, "message": "搜索成功", "data": locations})
-	})
+	}
+}
 
-	// 用户预约接口
-	r.POST("/reservation", func(c *gin.Context) {
+func reservation(db *gorm.DB) gin.HandlerFunc {
+	return func(c *gin.Context) {
 		var request struct {
 			Token      string `json:"Token"`
 			LocationID int    `json:"LocationID"`
@@ -301,10 +351,11 @@ func main() {
 		}
 
 		c.JSON(200, gin.H{"code": 0, "message": "预约成功", "data": record})
-	})
+	}
+}
 
-	// 用户预约记录列表接口
-	r.POST("/listrecord", func(c *gin.Context) {
+func listrecord(db *gorm.DB) gin.HandlerFunc {
+	return func(c *gin.Context) {
 		var request struct {
 			Token string `json:"Token"`
 		}
@@ -324,10 +375,11 @@ func main() {
 		db.Where("user_id = ?", tokenData.UserID).Find(&records)
 
 		c.JSON(200, gin.H{"code": 0, "message": "搜索成功", "data": records})
-	})
+	}
+}
 
-	// 用户预约记录详细列表接口
-	r.POST("/listrecorddetail", func(c *gin.Context) {
+func listrecorddetail(db *gorm.DB) gin.HandlerFunc {
+	return func(c *gin.Context) {
 		var request struct {
 			Token string `json:"Token"`
 		}
@@ -362,10 +414,11 @@ func main() {
 			Find(&records)
 
 		c.JSON(200, gin.H{"code": 0, "message": "搜索成功", "data": records})
-	})
+	}
+}
 
-	// 预约地信息查询接口
-	r.POST("/locationinfo", func(c *gin.Context) {
+func locationinfo(db *gorm.DB) gin.HandlerFunc {
+	return func(c *gin.Context) {
 		var request struct {
 			Token      string `json:"Token"`
 			LocationID int    `json:"LocationID"`
@@ -388,15 +441,5 @@ func main() {
 		}
 
 		c.JSON(200, gin.H{"code": 0, "message": "查询成功", "data": location})
-	})
-
-	err = r.Run()
-	if err != nil {
-		panic("failed at r.Run()")
 	}
-}
-
-func generateToken(userID uint) string {
-	token := uuid.New().String() // Generate a unique token using UUID
-	return token
 }
