@@ -1,9 +1,3 @@
----
-runme:
-  id: 01HMV87HR2314QHE9YBV7CBQZ5
-  version: v2.2
----
-
 # 接口文档
 
 ## 用户注册接口
@@ -19,7 +13,7 @@ runme:
 
 请求示例：
 
-```json {"id":"01HMV87HR2314QHE9YAJMXRD9S"}
+```http
 POST /register
 Content-Type: application/json
 
@@ -36,7 +30,7 @@ Content-Type: application/json
 
 返回示例：
 
-```json {"id":"01HMV87HR2314QHE9YANFXS045"}
+```json
 {
     "code": 0,
     "message": "注册成功"
@@ -56,7 +50,7 @@ Content-Type: application/json
 
 请求示例：
 
-```sh {"id":"01HMV87HR2314QHE9YANR740Q6"}
+```http
 POST /login
 Content-Type: application/json
 
@@ -74,7 +68,7 @@ Content-Type: application/json
 
 返回示例：
 
-```json {"id":"01HMV87HR2314QHE9YAS5S125N"}
+```json
 {
     "code": 0,
     "message": "登录成功",
@@ -94,7 +88,7 @@ Content-Type: application/json
 
 请求示例：
 
-```sh {"id":"01HMV87HR2314QHE9YATPF2KWR"}
+```http
 POST /userinfo
 Content-Type: application/json
 
@@ -111,7 +105,7 @@ Content-Type: application/json
 
 返回示例：
 
-```json {"id":"01HMV87HR2314QHE9YAV315HXS"}
+```json
 {
     "code": 0,
     "message": "获取个人信息成功",
@@ -143,7 +137,7 @@ Content-Type: application/json
 
 请求示例：
 
-```html {"id":"01HMV87HR2314QHE9YAX30BKKT"}
+```http
 POST /upDateuserinfo
 Content-Type: application/json
 
@@ -164,7 +158,7 @@ Content-Type: application/json
 
 返回示例：
 
-```ini {"id":"01HMV87HR2314QHE9YAYAXSAZK"}
+```json
 {
     "code": 0,
     "message": "修改个人信息成功"
@@ -185,7 +179,7 @@ Content-Type: application/json
 
 请求示例：
 
-```json {"id":"01HMV87HR2314QHE9YAZY5FH30"}
+```http
 POST /addlocation
 Content-Type: application/json
 
@@ -204,7 +198,7 @@ Content-Type: application/json
 
 返回示例：
 
-```json {"id":"01HMV87HR2314QHE9YB2KFR7SQ"}
+```json
 {
     "code": 0,
     "message": "添加地点成功",
@@ -231,7 +225,7 @@ Content-Type: application/json
 
 请求示例：
 
-```sh {"id":"01HMV87HR2314QHE9YB6CEQWQ7"}
+```http
 POST /upDatelocation
 Content-Type: application/json
 
@@ -250,7 +244,7 @@ Content-Type: application/json
 
 返回示例：
 
-```ini {"id":"01HMV87HR2314QHE9YB9Z385KK"}
+```json
 {
     "code": 0,
     "message": "更新地点成功"
@@ -270,7 +264,7 @@ Content-Type: application/json
 
 请求示例：
 
-```sh {"id":"01HMV87HR2314QHE9YBCJ2RYR0"}
+```http
 POST /searchlocation
 Content-Type: application/json
 
@@ -288,7 +282,7 @@ Content-Type: application/json
 
 返回示例：
 
-```json {"id":"01HMV87HR2314QHE9YBG1JNNB3"}
+```json
 {
     "code": 0,
     "message": "搜索成功",
@@ -322,7 +316,7 @@ Content-Type: application/json
 
 请求示例：
 
-```sh {"id":"01HMV87HR2314QHE9YBH3SN0MZ"}
+```http
 POST /reservation
 Content-Type: application/json
 
@@ -342,7 +336,7 @@ Content-Type: application/json
 
 返回示例：
 
-```json {"id":"01HMV87HR2314QHE9YBHAAG8F2"}
+```json
 {
     "code": 0,
     "message": "预约成功",
@@ -367,7 +361,7 @@ Content-Type: application/json
 
 请求示例：
 
-```sh {"id":"01HMV87HR2314QHE9YBKZDRDN3"}
+```http
 POST /listrecord
 Content-Type: application/json
 
@@ -384,7 +378,7 @@ Content-Type: application/json
 
 返回示例：
 
-```json {"id":"01HMV87HR2314QHE9YBMCX79KF"}
+```json
 {
     "code": 0,
     "message": "搜索成功",
@@ -419,7 +413,7 @@ Content-Type: application/json
 
 请求示例：
 
-```sh {"id":"01HMV87HR2314QHE9YBNAN8KFM"}
+```http
 POST /listrecorddetail
 Content-Type: application/json
 
@@ -436,7 +430,7 @@ Content-Type: application/json
 
 返回示例：
 
-```json {"id":"01HMV87HR2314QHE9YBP19PMYK"}
+```json
 {
     "code": 0,
     "message": "搜索成功",
@@ -482,7 +476,7 @@ Content-Type: application/json
 
 请求示例：
 
-```sh {"id":"01HMV87HR2314QHE9YBQWF9FW0"}
+```http
 POST /locationinfo
 Content-Type: application/json
 
@@ -500,7 +494,7 @@ Content-Type: application/json
 
 返回示例：
 
-```json {"id":"01HMV87HR2314QHE9YBTCS0CTW"}
+```json
 {
     "code": 0,
     "message": "查询成功",
