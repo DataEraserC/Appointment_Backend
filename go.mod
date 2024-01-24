@@ -1,4 +1,4 @@
-module main
+module appointment
 
 go 1.20
 

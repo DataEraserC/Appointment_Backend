@@ -1,0 +1,99 @@
+schema = 3
+
+[mod]
+  [mod."github.com/bytedance/sonic"]
+    version = "v1.10.2"
+    hash = "sha256-Yzf5nGoTvIrmYwf0GX3I9BlP5iWJmjAVRxr5ebE+d+c="
+  [mod."github.com/chenzhuoyu/base64x"]
+    version = "v0.0.0-20230717121745-296ad89f973d"
+    hash = "sha256-o1qbpdkfbXE/DWW1ZFgTLPS2HGS0Ib69dbd6zO8CCWk="
+  [mod."github.com/chenzhuoyu/iasm"]
+    version = "v0.9.1"
+    hash = "sha256-P5h3i6K0JAl1dmsuUSxHXTANgW4hs96lS4HgNZrwANk="
+  [mod."github.com/gabriel-vasile/mimetype"]
+    version = "v1.4.3"
+    hash = "sha256-EDmlRi3av27dq/ISVTglv08z4yZzMQ/SxL1c46EJro0="
+  [mod."github.com/gin-contrib/sse"]
+    version = "v0.1.0"
+    hash = "sha256-zYbMTao+1F+385Lvsba9roLmmt9eYqr57sUWo0LCVhw="
+  [mod."github.com/gin-gonic/gin"]
+    version = "v1.9.1"
+    hash = "sha256-3FHywH5QuhTeQcdF8v06jt9vIkH0ON6ydpMYciAc8xQ="
+  [mod."github.com/go-playground/locales"]
+    version = "v0.14.1"
+    hash = "sha256-BMJGAexq96waZn60DJXZfByRHb8zA/JP/i6f/YrW9oQ="
+  [mod."github.com/go-playground/universal-translator"]
+    version = "v0.18.1"
+    hash = "sha256-2/B2qP51zfiY+k8G0w0D03KXUc7XpWj6wKY7NjNP/9E="
+  [mod."github.com/go-playground/validator/v10"]
+    version = "v10.17.0"
+    hash = "sha256-S9bj9ounwVt2S/we5S+r0tRYs92Gd2CcWuuIlND3n8Q="
+  [mod."github.com/goccy/go-json"]
+    version = "v0.10.2"
+    hash = "sha256-6fMD2/Rku8HT0zDdeA23pX0YxbohiIOC8OJNYbylJTQ="
+  [mod."github.com/google/uuid"]
+    version = "v1.6.0"
+    hash = "sha256-VWl9sqUzdOuhW0KzQlv0gwwUQClYkmZwSydHG2sALYw="
+  [mod."github.com/jinzhu/inflection"]
+    version = "v1.0.0"
+    hash = "sha256-3h3pHib5MaCXKyKLIMyQnSptDJ16kPjCOQPoEBoQsZg="
+  [mod."github.com/jinzhu/now"]
+    version = "v1.1.5"
+    hash = "sha256-NNLqoFx9FczBBDpD0O0aSHnC/YDZ9E/xQ340o7u63IM="
+  [mod."github.com/json-iterator/go"]
+    version = "v1.1.12"
+    hash = "sha256-To8A0h+lbfZ/6zM+2PpRpY3+L6725OPC66lffq6fUoM="
+  [mod."github.com/klauspost/cpuid/v2"]
+    version = "v2.2.6"
+    hash = "sha256-SlMBrOvotgIvGI7GsUmNxs++KpgzNCk1jOBAl8Oq8c8="
+  [mod."github.com/leodido/go-urn"]
+    version = "v1.2.4"
+    hash = "sha256-N2HO7ChScxI79KGvXI9LxoIlr+lkBNdDZP9OPGwPRK0="
+  [mod."github.com/mattn/go-isatty"]
+    version = "v0.0.20"
+    hash = "sha256-qhw9hWtU5wnyFyuMbKx+7RB8ckQaFQ8D+8GKPkN3HHQ="
+  [mod."github.com/mattn/go-sqlite3"]
+    version = "v1.14.19"
+    hash = "sha256-mP4cW7TGoe2ERgVZhHxrjYesjEENLYnY60V0xOrync4="
+  [mod."github.com/modern-go/concurrent"]
+    version = "v0.0.0-20180306012644-bacd9c7ef1dd"
+    hash = "sha256-OTySieAgPWR4oJnlohaFTeK1tRaVp/b0d1rYY8xKMzo="
+  [mod."github.com/modern-go/reflect2"]
+    version = "v1.0.2"
+    hash = "sha256-+W9EIW7okXIXjWEgOaMh58eLvBZ7OshW2EhaIpNLSBU="
+  [mod."github.com/pelletier/go-toml/v2"]
+    version = "v2.1.1"
+    hash = "sha256-BQtflYQ8Dt7FL/yFI9OnxwvsRk0oEO37ZXuGXFveVpo="
+  [mod."github.com/twitchyliquid64/golang-asm"]
+    version = "v0.15.1"
+    hash = "sha256-HLk6oUe7EoITrNvP0y8D6BtIgIcmDZYtb/xl/dufIoY="
+  [mod."github.com/ugorji/go/codec"]
+    version = "v1.2.12"
+    hash = "sha256-sp1LJ93UK7mFwgZqG8jxCgTCPgKR74HNU6XxX0Jfjm0="
+  [mod."golang.org/x/arch"]
+    version = "v0.7.0"
+    hash = "sha256-loj9u3LgfBOeVso5djEvO5lWpaCe9xz2gPBaQpbdJvE="
+  [mod."golang.org/x/crypto"]
+    version = "v0.18.0"
+    hash = "sha256-BuMVUxOIyfLo8MOhqYt+uQ8NDN6P2KdblKyfPxINzQ4="
+  [mod."golang.org/x/net"]
+    version = "v0.20.0"
+    hash = "sha256-PCttIsWSBQd6fDXL49jepszUAMLnAGAKR//5EDO3XDk="
+  [mod."golang.org/x/sys"]
+    version = "v0.16.0"
+    hash = "sha256-ZkGclbp2S7NQYhbuGji6XokCn2Qi1BJy8dwyAOTV8sY="
+  [mod."golang.org/x/text"]
+    version = "v0.14.0"
+    hash = "sha256-yh3B0tom1RfzQBf1RNmfdNWF1PtiqxV41jW1GVS6JAg="
+  [mod."google.golang.org/protobuf"]
+    version = "v1.32.0"
+    hash = "sha256-GJuTkMGHCzHbyK4yD5kY4oMn8wQWqgkeBK//yVDqHJk="
+  [mod."gopkg.in/yaml.v3"]
+    version = "v3.0.1"
+    hash = "sha256-FqL9TKYJ0XkNwJFnq9j0VvJ5ZUU1RvH/52h/f5bkYAU="
+  [mod."gorm.io/driver/sqlite"]
+    version = "v1.5.4"
+    hash = "sha256-6DyQSGLNyNkZjSynACgaCR6XwJFRpLaRpCg1W+ir9Q0="
+  [mod."gorm.io/gorm"]
+    version = "v1.25.5"
+    hash = "sha256-z2La4pnVVFKD5sfha18QEZeCwDWPmwql/1h0Va0wIvQ="
