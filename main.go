@@ -1,4 +1,4 @@
-package appointment
+package main
 
 import (
 	"github.com/gin-gonic/gin"
